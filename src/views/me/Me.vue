@@ -1,127 +1,222 @@
 <template>
-    <div>
-      <scroll class="content" :probe-type="3">
-        <ul>
-          <li>个人信息1</li>
-          <li>个人信息2</li>
-          <li>个人信息3</li>
-          <li>个人信息4</li>
-          <li>个人信息5</li>
-          <li>个人信息6</li>
-          <li>个人信息7</li>
-          <li>个人信息8</li>
-          <li>个人信息9</li>
-          <li>个人信息10</li>
-          <li>个人信息11</li>
-          <li>个人信息12</li>
-          <li>个人信息13</li>
-          <li>个人信息14</li>
-          <li>个人信息15</li>
-          <li>个人信息16</li>
-          <li>个人信息17</li>
-          <li>个人信息18</li>
-          <li>个人信息19</li>
-          <li>个人信息20</li>
-          <li>个人信息21</li>
-          <li>个人信息22</li>
-          <li>个人信息23</li>
-          <li>个人信息24</li>
-          <li>个人信息25</li>
-          <li>个人信息26</li>
-          <li>个人信息27</li>
-          <li>个人信息28</li>
-          <li>个人信息29</li>
-          <li>个人信息30</li>
-          <li>个人信息31</li>
-          <li>个人信息32</li>
-          <li>个人信息33</li>
-          <li>个人信息34</li>
-          <li>个人信息35</li>
-          <li>个人信息36</li>
-          <li>个人信息37</li>
-          <li>个人信息38</li>
-          <li>个人信息39</li>
-          <li>个人信息40</li>
-          <li>个人信息41</li>
-          <li>个人信息42</li>
-          <li>个人信息43</li>
-          <li>个人信息44</li>
-          <li>个人信息45</li>
-          <li>个人信息46</li>
-          <li>个人信息47</li>
-          <li>个人信息48</li>
-          <li>个人信息49</li>
-          <li>个人信息50</li>
-          <li>个人信息51</li>
-          <li>个人信息52</li>
-          <li>个人信息53</li>
-          <li>个人信息54</li>
-          <li>个人信息55</li>
-          <li>个人信息56</li>
-          <li>个人信息57</li>
-          <li>个人信息58</li>
-          <li>个人信息59</li>
-          <li>个人信息60</li>
-          <li>个人信息61</li>
-          <li>个人信息62</li>
-          <li>个人信息63</li>
-          <li>个人信息64</li>
-          <li>个人信息65</li>
-          <li>个人信息66</li>
-          <li>个人信息67</li>
-          <li>个人信息68</li>
-          <li>个人信息69</li>
-          <li>个人信息70</li>
-          <li>个人信息71</li>
-          <li>个人信息72</li>
-          <li>个人信息73</li>
-          <li>个人信息74</li>
-          <li>个人信息75</li>
-          <li>个人信息76</li>
-          <li>个人信息77</li>
-          <li>个人信息78</li>
-          <li>个人信息79</li>
-          <li>个人信息80</li>
-          <li>个人信息81</li>
-          <li>个人信息82</li>
-          <li>个人信息83</li>
-          <li>个人信息84</li>
-          <li>个人信息85</li>
-          <li>个人信息86</li>
-          <li>个人信息87</li>
-          <li>个人信息88</li>
-          <li>个人信息89</li>
-          <li>个人信息90</li>
-          <li>个人信息91</li>
-          <li>个人信息92</li>
-          <li>个人信息93</li>
-          <li>个人信息94</li>
-          <li>个人信息95</li>
-          <li>个人信息96</li>
-          <li>个人信息97</li>
-          <li>个人信息98</li>
-          <li>个人信息99</li>
-          <li>个人信息100</li>
-        </ul>
-      </scroll>
+  <div class="profile">
+    <!-- 顶部导航栏 -->
+    <NavBar class="navBar">
+      <div slot="center">个人中心</div>
+    </NavBar>
+    <!-- 登录 -->
+    <div class="userLogin">
+      <div class="headImg">
+        <img src="../../assets/images/profile/avatar.svg" />
+      </div>
+      <div class="userbing">
+        <div class="username">
+          <h3>pika</h3>
+          <p>
+            <img src="../../assets/images/profile/phone.svg" />
+            <span>暂无绑定手机号</span>
+          </p>
+        </div>
+        <div class="addMoney" @click="getMoney">
+          <span>拿钱</span>
+        </div>
+      </div>
     </div>
+    <!-- 金额部分 -->
+    <div class="userBalance">
+      <div>
+        <p>
+          <span>{{ userInfo.balance.toFixed(2) }}元</span>
+        </p>
+        <p>我的余额</p>
+      </div>
+      <div>
+        <p>
+          <span>{{ userInfo.discount }}个</span>
+        </p>
+        <p>我的优惠</p>
+      </div>
+      <div class="score">
+        <p>
+          <span>{{ userInfo.point }}分</span>
+        </p>
+        <p>我的积分</p>
+      </div>
+    </div>
+    <!-- 下边部分 -->
+    <div class="userMsg">
+      <div class="Cart" @click="toCart">
+        <span><img src="../../assets/images/profile/cart.svg" /></span>
+        <p>我的购物车</p>
+      </div>
+      <div class="split" @click="toMyGoods">
+        <span><img src="../../assets/images/profile/shopping.svg" /></span>
+        <p>
+          已购商品
+          <i v-if="getMyGoods">{{ getMyGoods }}</i>
+        </p>
+      </div>
+      <div class="message">
+        <span><img src="../../assets/images/profile/message.svg" /></span>
+        <p>我的消息</p>
+      </div>
+      <div class="store">
+        <span><img src="~../../assets/images/profile/pointer.svg" /></span>
+        <p>积分商城</p>
+      </div>
+      <div class="member">
+        <span><img src="../../assets/images/profile/vip.svg" /></span>
+        <p>会员卡</p>
+      </div>
+    </div>
+    <!-- 静态弹窗 -->
+    <Toast v-if="isShowToast" :msg="msg" />
+  </div>
 </template>
 
 <script>
-  import Scroll from 'components/common/scroll/Scroll'
+// 导入顶部导航栏模块
+import NavBar from "../../components/common/navbar/NavBar";
 
-  export default {
-      name: "Me",
-      components: {
-        Scroll
-      }
-  }
+// 导入混合模块使用Toast
+import { showToast } from "../../common/mixin";
+
+import { mapState, mapActions, mapGetters } from "vuex";
+
+export default {
+  name: "profile",
+  mixins: [showToast],
+  components: {
+    NavBar,
+  },
+  methods: {
+    ...mapActions(["addMoney"]),
+    toCart() {
+      this.$router.push("/shopcart");
+    },
+    getMoney() {
+      this.addMoney().then((res) => {
+        this.msg = res;
+        this.toastMixin();
+      });
+    },
+    toMyGoods() {
+      this.$router.push("/mygoods");
+      // this.$router.go(0);
+    },
+  },
+  computed: {
+    ...mapState(["userInfo"]),
+    ...mapGetters(["getMyGoods"]),
+  },
+};
 </script>
 
-<style scoped>
-  .content {
-    height: 300px;
-    background-color: rebeccapurple;
-    overflow: hidden;
+<style lang="less" scoped>
+.profile {
+  height: 100vh;
+  .navBar {
+    color: #fff;
+    background-color: var(--color-tint);
   }
+  .userLogin {
+    display: flex;
+    position: relative;
+    background-color: var(--color-tint);
+    padding: 20px;
+    .headImg {
+      flex: 1;
+      margin-right: 10px;
+      img {
+        width: 80px;
+        border-radius: 100%;
+      }
+    }
+    .userbing {
+      flex: 4;
+      display: flex;
+      .username {
+        margin-right: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        font-size: 12px;
+        color: #fff;
+        height: 100%;
+        h3 {
+          font-weight: normal;
+        }
+        p {
+          display: flex;
+          img {
+            width: 20px;
+          }
+        }
+      }
+    }
+    .addMoney {
+      flex: 2;
+      color: #fff;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 16px;
+      box-shadow: 2px 2px 5px 2px rgba(224, 106, 95, 0.638);
+      border-radius: 20px;
+    }
+  }
+  .userBalance {
+    display: flex;
+    text-align: center;
+    div {
+      flex: 1;
+      padding: 15px 10px;
+      border-left: 1px solid #ccc;
+      p {
+        margin-bottom: 5px;
+        span {
+          font-size: 25px;
+          font-weight: 550;
+          color: rgb(224, 105, 95);
+          font-size: 18px;
+        }
+      }
+    }
+    .score {
+      border-right: 1px solid #ccc;
+    }
+  }
+  .userMsg {
+    border-top: 20px solid rgb(242, 242, 242);
+    div {
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #ccc;
+      span {
+        text-align: center;
+        flex: 1;
+        img {
+          width: 30px;
+        }
+      }
+      p {
+        flex: 5;
+      }
+    }
+    .message {
+      border-top: 20px solid rgb(242, 242, 242);
+    }
+    .split {
+      i {
+        margin-left: 2px;
+        padding: 1px 3px;
+        background-color: red;
+        border-radius: 100%;
+        color: #fff;
+      }
+    }
+  }
+}
 </style>

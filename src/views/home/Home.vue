@@ -35,7 +35,7 @@
   import FeatureView from './childComps/HomeFeatureView.vue'
 
   import NavBar from 'components/common/navbar/NavBar'
-  import TabControl from 'components/contents/tabControl/TabControl.vue'
+  import TabControl from '../../components/contents/tabControl/TabControl.vue'
   import GoodsList from 'components/contents/goods/GoodsList.vue'
   import Scroll from 'components/common/scroll/Scroll.vue'
   import BackTop from 'components/contents/backTop/BackTop.vue'

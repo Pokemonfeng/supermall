@@ -1,5 +1,7 @@
 import {debouce} from './utils'
 import BackTop from 'components/contents/backTop/BackTop.vue'
+import Toast from "components/common/toast/Toast";
+
 
 export const itemListennerMixin = {
   data() {
@@ -40,3 +42,25 @@ export const backTopMixin = {
 
   }
 }
+
+export const showToast = {
+  components: {
+    Toast,
+  },
+  data() {
+    return {
+      // 模态框消息
+      msg: "",
+      // 是否显示模态框
+      isShowToast: false,
+    };
+  },
+  methods: {
+    toastMixin(timer = 2000) {
+      this.isShowToast = true;
+      setTimeout(() => {
+        this.isShowToast = false;
+      }, timer);
+    },
+  },
+};
